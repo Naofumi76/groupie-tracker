@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../static/css/artist.css" type="text/css" rel="stylesheet"/>
+    <title>Groupie Tracker</title>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="/" class="home-button">Home</a>
+        {{if .NextId}}
+        <a href="/artist/{{.NextId}}" class="next-button">Next Artist</a>
+        {{end}}
+        {{if .PreviousId}}
+        <a href="/artist/{{.PreviousId}}" class="previous-button">Previous Artist</a>
+        {{end}}
+    </div>
+
+    <div class="main-content">
+        <h1>Groupie Tracker</h1>
+
+        <div class="group-card">
+            <img src="{{.Image}}" alt="{{.Name}}">
+            <div class="group-details"><br>
+                <div class="name"><b>Name of the group:</b> {{.Name}}</div><br>
+                <div class="creation-date"><b>Creation Date:</b> {{.CreationDate}}</div><br>
+                <div class="first-album"><b>First album:</b> {{.FirstAlbum}}</div>
+            </div>
+        </div>
+
+        <h2>Members</h2>
+        <ul class="members-list">
+            {{range .Members}}
+                <li><b>{{.}}</b></li>
+            {{end}}
+        </ul>
+
+        <h2>Concert Dates</h2>
+        <ul class="concert-dates">
+            {{range $location, $dates := .LocationDate}}
+                <li><b>{{$location}}:</b> <br>{{range $dates}} |{{.}}| {{end}}</li>
+            {{end}}
+        </ul>
+    </div>
+</body>
+</html>

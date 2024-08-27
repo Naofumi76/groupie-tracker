@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../static/css/style.css?v=2" type="text/css" rel="stylesheet"/>
+    <title>{{ .Title }}</title>
+</head>
+<body>
+    <h1>Groupie Tracker</h1>
+    
+    <h1>Liste dynamique de la magie</h1>
+
+    <!-- Form for filtering groups by the number of members -->
+    <form id="filter-form" method="GET" action="/">
+        <label><input type="checkbox" name="members" value="1"> 1 Member</label>
+        <label><input type="checkbox" name="members" value="2"> 2 Members</label>
+        <label><input type="checkbox" name="members" value="3"> 3 Members</label>
+        <label><input type="checkbox" name="members" value="4"> 4 Members</label>
+        <label><input type="checkbox" name="members" value="5"> 5 Members</label>
+        <label><input type="checkbox" name="members" value="6"> 6 Members</label>
+        <label><input type="checkbox" name="members" value="7"> 7 Members</label>
+        <label><input type="checkbox" name="members" value="8"> 8 Members</label>
+        
+        <!-- Creation Date Filter -->
+        <div>
+            <label for="creation-date-min">Creation Date Min:</label>
+            <input type="range" id="creation-date-min" name="creation-date-min" min="1957" max="2024" value="1957" oninput="this.nextElementSibling.value = this.value == 1957 ? 'NO FILTER' : this.value">
+            <output>NO FILTER</output>
+        </div>
+
+        <div>
+            <label for="creation-date-max">Creation Date Max:</label>
+            <input type="range" id="creation-date-max" name="creation-date-max" min="1958" max="2025" value="2025" oninput="this.nextElementSibling.value = this.value == 2025 ? 'NO FILTER' : this.value">
+            <output>NO FILTER</output>
+        </div>
+
+        <!-- First Album Year Filter -->
+        <div>
+            <label for="first-album-year-min">First Album Year Min:</label>
+            <input type="range" id="first-album-year-min" name="first-album-year-min" min="1957" max="2024" value="1957" oninput="this.nextElementSibling.value = this.value == 1957 ? 'NO FILTER' : this.value">
+            <output>NO FILTER</output>
+        </div>
+
+        <div>
+            <label for="first-album-year-max">First Album Year Max:</label>
+            <input type="range" id="first-album-year-max" name="first-album-year-max" min="1958" max="2025" value="2025" oninput="this.nextElementSibling.value = this.value == 2025 ? 'NO FILTER' : this.value">
+            <output>NO FILTER</output>
+        </div>
+
+
+        <div class="dropdown">
+            <label for="location">Location:</label>
+            <select id="location" name="location">
+                <option value="">ALL LOCATIONS</option>
+                {{range .LocationItem.Index}}
+                    {{range .Locations}}
+                        <option value="{{.}}">{{.}}</option>
+                    {{end}}
+                {{end}}
+            </select>
+        </div>
+        
+        
+        
+        
+
+
+        <input type="submit" value="Filter">
+    </form>
+
+    <ul>
+    {{range .ArtistItem}}
+        <li>
+            <a href="/artist/{{.Id}}" class="artist-link">
+                <img src="{{.Image}}" alt="{{.Name}}" style="width:200px;height:auto;">
+                <div class="name"> Name of the group : <br> {{.Name}}</div>
+                <div class="creation-date"> Creation Date : {{.CreationDate}}</div>
+                <div class="first-album"> First album : {{.FirstAlbum}}</div>
+            </a>
+        </li>
+    {{end}}
+    </ul>
+</body>
+</html>
